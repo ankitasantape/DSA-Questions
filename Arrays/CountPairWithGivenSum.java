@@ -74,7 +74,29 @@ public class PairSum {
 Create a map to store frequency of each number in the array. (Single traversal is required)
 In the next traversal, for every element check if it can be combined with any other element (other than itself!) to give the desired sum. Increment the counter accordingly.
 After completion of second traversal, we’d have twice the required value stored in counter because every pair is counted two times. Hence divide count by 2 and return.
-    
+        Time Complexity - O(n)
+	Space Complexity - O(n)
+	
+	public static int pairSumUsingHashMap(int arr[], int x) {
+		HashMap<Integer,Integer> map = new HashMap<>();
+		for( int i = 0; i < arr.length; i++  ) {
+			if( !map.containsKey(arr[i]) ) {
+				map.put(arr[i], 0);
+			}
+			map.put( arr[i], map.get(arr[i]) + 1);
+		}
+		
+		int count = 0;
+		for( int i = 0; i < arr.length; i++ ) {
+			if( map.get( x - arr[i] ) != null ) {
+				count += map.get(x - arr[i]);
+			}
+			if( x - arr[i] == arr[i] ) {
+				count--;
+			}
+		}
+		return count/2;
+	}
     
     
 	public static void main(String[] args) {
