@@ -32,16 +32,9 @@ Output:
 
 */
 public class FindFirstAndLastOccurrence {
-
-	public static void main(String[] args) {
-		Scanner s = new Scanner(System.in);
-        int n = s.nextInt();
-        int x = s.nextInt();
-        int a[] = new int[n];
-        for( int i = 0; i < n; i++ ) {
-        	a[i] = s.nextInt();
-        }
-        int first = -1, last = -1;
+	/* Time Complexity- O(n) Space Complexity - O(1)*/
+    public static void findFirstAndLast(int a[], int n, int x) {
+    	int first = -1, last = -1;
         for( int i = 0 ; i < n ; i++ ) {
         	if( a[i] != x ) {
         		continue;
@@ -57,6 +50,53 @@ public class FindFirstAndLastOccurrence {
         }else {
         	System.out.println("Not found");
         }
+    }
+    
+    /* Time Complexity- O( log n ) Space Complexity - O(1)   */
+    public static int first(int a[], int n, int x) {
+           int start= 0, end = n-1;
+           int res = -1; 
+           while( start <= end ) {
+        	   int mid =start + (end-start)/2; 
+        	   if(x == a[mid]) {
+        		   res = mid;
+        		   end = mid - 1;
+        	   } else if( x < a[mid] ) {
+        		   end = mid - 1;
+        	   } else {
+        		   start = mid +1;
+        	   }
+           }
+           return res;
+    }
+    /* Time Complexity- O( log n ) Space Complexity - O(1)   */
+    public static int last(int a[], int n, int x) {
+           int start= 0, end = n-1;
+           int res = -1; 
+           while( start <= end ) {
+        	   int mid =start + (end-start)/2; 
+        	   if(x == a[mid]) {
+        		   res = mid;
+        		   start = mid + 1;
+        	   } else if( x < a[mid] ) {
+        		   end = mid - 1;
+        	   } else {
+        		   start = mid +1;
+        	   }
+           }
+           return res;
+    }
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        int x = s.nextInt();
+        int a[] = new int[n];
+        for( int i = 0; i < n; i++ ) {
+        	a[i] = s.nextInt();
+        }
+        findFirstAndLast(a,n,x);
+        System.out.println("First : "+first(a,n,x));
+        System.out.println("Last : "+last(a,n,x));
         s.close();
 	}
 
